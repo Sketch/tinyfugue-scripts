@@ -3,6 +3,8 @@ This repository has a number of scripts that improve it.
 
 infinilog.tf - Automatically log everything and rollover logs daily.
 repose.tf    - Easily re-pose lines from log files to continue roleplaying.
+cg.tf        - Quickly switch worlds by substring.
+rwhen.tf     - Find out the timestamp of the most recent matching line.
 
 Required libraries (by Cheetah@M*U*S*H):
 vworld.tf    - An API for managing connectionless sockets. (Virtual worlds)
