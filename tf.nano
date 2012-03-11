@@ -1,0 +1,26 @@
+## tf scripts
+##
+## Nano syntax highlighting file for tf scripts with a limited degree
+## of error checking.
+##
+## By Cheetah@M*U*S*H
+
+syntax "tf-script" "\.tf(rc)?$"
+color white,red "."
+color white start="^[^;]?/(def|eval|hook|defregrow) " end="[^\\]$"
+color white start="^[^;]?/(set|require|bind|loaded|load|unset|undef) " end="$"
+# color white "/(def|eval|set|require|bind|loaded).*[^\\]$"
+color brightgreen "\$\["
+color brightgreen "\]"
+color brightwhite "/(def|set) [^=]*="
+color brightred "/(def|set) [^=]*"
+color white "-[a-z][^ ]*"
+color brightyellow "-[a-z0-9]"
+color cyan "[0-9]{1,}"
+color green "%."
+color red "%?\{[^}]*\}"
+color magenta "/[a-zA-Z0-9_-]{2,}"
+color brightcyan ""(\\.|[^\"])*""
+color cyan "'(\\.|[^\'])*'"
+color brightblue "^;.*$"
+color yellow "@@."
