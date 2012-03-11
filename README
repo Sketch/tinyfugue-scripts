@@ -1,6 +1,9 @@
 TinyFugue is a terminal-based MU client.
 This repository has a number of scripts that improve it.
 
+infinilog.tf - Automatically log everything and rollover logs daily.
+repose.tf    - Easily re-pose lines from log files to continue roleplaying.
+
 These scripts require other scripts to run.
 Grep for "REQUIRE:" and download the files with curl/wget.
 
