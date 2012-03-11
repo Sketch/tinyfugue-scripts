@@ -1,0 +1,7 @@
+TinyFugue is a terminal-based MU client.
+This repository has a number of scripts that improve it.
+
+These scripts require other scripts to run.
+Grep for "REQUIRE:" and download the files with curl/wget.
+
+Send questions or comments to Sketch@M*U*S*H (telnet://mush.pennmush.org 4201).
