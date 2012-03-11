@@ -4,7 +4,9 @@ This repository has a number of scripts that improve it.
 infinilog.tf - Automatically log everything and rollover logs daily.
 repose.tf    - Easily re-pose lines from log files to continue roleplaying.
 
-These scripts require other scripts to run.
-Grep for "REQUIRE:" and download the files with curl/wget.
+Required libraries (by Cheetah@M*U*S*H):
+vworld.tf    - An API for managing connectionless sockets. (Virtual worlds)
+assoc.tf     - Association of key/value pairs. (Associative array)
+squish.tf    - Compresses runs of a character into a single character.
 
 Send questions or comments to Sketch@M*U*S*H (telnet://mush.pennmush.org 4201).

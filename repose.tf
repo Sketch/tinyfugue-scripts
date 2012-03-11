@@ -3,7 +3,7 @@
 ; Lowest tested version: tf 5.0b8
 ; Source: https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/repose.tf
 ; Author: Sketch@M*U*S*H
-; REQUIRE: vworld.tf http://diamond-age.net/~aiviru/vworld.tf
+; REQUIRE: vworld.tf https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/vworld.tf
 ; Notice: This script requires the 'cut' coreutil.
 ;
 ; Purpose:
@@ -143,9 +143,9 @@
     /_repose_close_vworld %{1}%;\
   /endif
 
-;; INLINED: http://diamond-age.net/~aiviru/squish.tf
-;;  repose_squish(s1)
-;;  repose_squish(s1, s2)
+;; INLINED: https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/squish.tf
+;;  _repose_squish(s1)
+;;  _repose_squish(s1, s2)
 ;;          (str) Returns <s1> with runs of <s2> (default space) compressed
 ;;          into one occurrence.
 /def -i _repose_squish=\

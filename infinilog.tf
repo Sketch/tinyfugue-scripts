@@ -3,7 +3,7 @@
 ; Lowest tested version: tf 5.0b8
 ; Source: https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/infinilog.tf
 ; Author: Sketch@M*U*S*H
-; REQUIRE: assoc.tf http://diamond-age.net/~aiviru/assoc.tf
+; REQUIRE: assoc.tf https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/assoc.tf
 ;
 ; Purpose:
 ;  Auto-log upon connection to a world and roll over to a new log each day.
