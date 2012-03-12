@@ -8,7 +8,9 @@ rp/      Scripts for roleplaying MUs.
 mud/     Scripts for action MUs.
 lib/     Useful scripts that don't provide usable functionality on their own.
 
+util/cg.tf        - Quickly switch worlds by substring.
 util/infinilog.tf - Automatically log everything and rollover logs daily.
+util/rwhen.tf     - Find out the timestamp of the most recent matching line.
 rp/repose.tf      - Easily re-pose lines from log files to continue roleplaying.
 
 Required libraries (by Cheetah@M*U*S*H):
