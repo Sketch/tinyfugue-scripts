@@ -1,12 +1,21 @@
 TinyFugue is a terminal-based MU client.
 This repository has a number of scripts that improve it.
+These scripts are all from https://github.com/Sketch/tinyfugue-scripts
 
-infinilog.tf - Automatically log everything and rollover logs daily.
-repose.tf    - Easily re-pose lines from log files to continue roleplaying.
+Directory structure:
+util/    General utilities for TinyFugue.
+rp/      Scripts for roleplaying MUs.
+mud/     Scripts for action MUs.
+lib/     Useful scripts that don't provide usable functionality on their own.
+
+util/infinilog.tf - Automatically log everything and rollover logs daily.
+rp/repose.tf      - Easily re-pose lines from log files to continue roleplaying.
 
 Required libraries (by Cheetah@M*U*S*H):
-vworld.tf    - An API for managing connectionless sockets. (Virtual worlds)
-assoc.tf     - Association of key/value pairs. (Associative array)
-squish.tf    - Compresses runs of a character into a single character.
+lib/vworld.tf     - An API for managing connectionless sockets. (Virtual worlds)
+lib/assoc.tf      - Association of key/value pairs. (Associative array)
+lib/squish.tf     - Compresses runs of a character into a single character.
 
+I personally coded util/infinilog.tf and rp/repose.tf
+All scripts are for TinyFugue 5, tested on no lower than version beta 8.
 Send questions or comments to Sketch@M*U*S*H (telnet://mush.pennmush.org 4201).

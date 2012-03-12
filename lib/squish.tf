@@ -1,8 +1,9 @@
-;; Author: Cheetah@M*U*S*H
 ;;  squish(s1)
 ;;  squish(s1, s2)
 ;;          (str) Returns <s1> with runs of <s2> (default space) compressed
 ;;          into one occurrence.
+;;
+;; By Cheetah@M*U*S*H
 
 /def -i squish=\
   /let squishstring=%{1}%;\

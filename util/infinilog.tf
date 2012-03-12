@@ -1,9 +1,9 @@
 ; Name: Infinilog
 ; Version: 1.3
 ; Lowest tested version: tf 5.0b8
-; Source: https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/infinilog.tf
+; Source: https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/util/infinilog.tf
 ; Author: Sketch@M*U*S*H
-; REQUIRE: assoc.tf https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/assoc.tf
+; REQUIRE: assoc.tf https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/lib/assoc.tf
 ;
 ; Purpose:
 ;  Auto-log upon connection to a world and roll over to a new log each day.

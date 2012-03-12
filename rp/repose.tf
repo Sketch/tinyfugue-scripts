@@ -1,9 +1,9 @@
 ; Name: Re-pose
 ; Version: 1.2
 ; Lowest tested version: tf 5.0b8
-; Source: https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/repose.tf
+; Source: https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/rp/repose.tf
 ; Author: Sketch@M*U*S*H
-; REQUIRE: vworld.tf https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/vworld.tf
+; REQUIRE: vworld.tf https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/lib/vworld.tf
 ; Notice: This script requires the 'cut' coreutil.
 ;
 ; Purpose:
