@@ -6,11 +6,18 @@ Directory structure:
 util/    General utilities for TinyFugue.
 rp/      Scripts for roleplaying MUs.
 mud/     Scripts for action MUs.
+mush/    Scripts designed for MUSHes (PennMUSH, TinyMUSH, etc)
 lib/     Useful scripts that don't provide usable functionality on their own.
 
 util/cg.tf        - Quickly switch worlds by substring.
 util/infinilog.tf - Automatically log everything and rollover logs daily.
 util/rwhen.tf     - Find out the timestamp of the most recent matching line.
+util/kbdoublestack.tf - When having one input window is too constraining.
+
+mush/chatlimits.tf - /limit keybindings for MUSH: Channels and pages
+mush/copyto.tf    - Using @decompile, copy objects from one world to another.
+mush/teach.tf     - /Teach somebody on a MUSH a useful bit of tf scripting.
+
 rp/repose.tf      - Easily re-pose lines from log files to continue roleplaying.
 
 Required libraries (by Cheetah@M*U*S*H):
