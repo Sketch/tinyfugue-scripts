@@ -22,7 +22,7 @@ mush/teach.tf     - /Teach somebody on a MUSH a useful bit of tf scripting.
 
 rp/repose.tf      - Easily re-pose lines from log files to continue roleplaying.
 
-Required libraries (by Cheetah@M*U*S*H):
+Libraries (used by some of the above or for use in your own code):
 lib/vworld.tf     - An API for managing connectionless sockets. (Virtual worlds)
 lib/assoc.tf      - Association of key/value pairs. (Associative array)
 lib/squish.tf     - Compresses runs of a character into a single character.
