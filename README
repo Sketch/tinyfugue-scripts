@@ -20,7 +20,7 @@ mush/chatlimits.tf - /limit keybindings for MUSH: Channels and pages
 mush/copyto.tf    - Using @decompile, copy objects from one world to another.
 mush/teach.tf     - /Teach somebody on a MUSH a useful bit of tf scripting.
 
-rp/repose.tf      - Easily re-pose lines from log files to continue roleplaying.
+rp/repost.tf      - Easily repost lines from log files to continue roleplaying.
 
 Libraries (used by some of the above or for use in your own code):
 lib/vworld.tf     - An API for managing connectionless sockets. (Virtual worlds)
