@@ -21,7 +21,7 @@
 /def _loader_add=\
   /let _loader_new=%{_loader_dir}/%{1}%;\
   /if ({_loader_list} !~ "") \
-    /if (strstr({_loader_list}, {1}) != "-1") \
+    /if ({_loader_list} =/ strcat("*{", {1}, "}*")) \
       /echo -A %% Already added to loader: %{1}%;\
       /return%;\
     /endif%;\
