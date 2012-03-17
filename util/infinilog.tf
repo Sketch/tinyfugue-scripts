@@ -1,5 +1,4 @@
 ; Name: Infinilog
-; Version: 1.3
 ; Lowest tested version: tf 5.0b8
 ; Source: https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/util/infinilog.tf
 ; Author: Sketch@M*U*S*H

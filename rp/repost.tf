@@ -1,5 +1,4 @@
 ; Name: Repost
-; Version: 1.2
 ; Lowest tested version: tf 5.0b8
 ; Source: https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/rp/repost.tf
 ; Author: Sketch@M*U*S*H
