@@ -3,6 +3,7 @@
 ; Source: https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/rp/repost.tf
 ; Author: Sketch@M*U*S*H
 ; REQUIRE: vworld.tf https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/lib/vworld.tf
+; REQUIRE: squish.tf https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/lib/squish.tf
 ; Notice: This script requires the 'cut' coreutil. (optionally 'ls')
 ;
 ; Purpose:
@@ -40,6 +41,9 @@
 ;  * Add default directory option.
 ;  * Add repost_prefix altering option to /repost
 ;  * Add different (default?) repost_prefixes for different world types.
+;	 ; PennMUSH: @emit/noeval or ]@emit
+;	 ; Rhost: ]@emit
+;	 ; TinyMUX: @nemit
 ;  * Figure out how to /quote to virtual world without /fg it first, so that
 ;    a player's terminal isn't bombed by 300KB+ of logfile text at once.
 ;    ^ Maybe use tail -1000, with a /repost -a option to load the whole file?
@@ -48,6 +52,7 @@
 
 /loaded sketch_repost.tf
 /require vworld.tf
+/require squish.tf
 /require stack-q.tf
 /require textencode.tf
 
@@ -139,7 +144,7 @@
 ; {1} is repost_<WORLDNAME>
 ; {-1} is the text the user typed.
 /def -i _repost_sender=\
-  /let chosen=$[replace(' ',',',_repost_squish({-1}))]%;\
+  /let chosen=$[replace(' ',',',squish({-1}))]%;\
   /let origin=$[substr({1},strchr({1},'_')+1)]%;\
   /if (regmatch('^[-,0-9]+$',{chosen}) != 0)\
     /let delim=\0x1A%;\
@@ -155,17 +160,3 @@
     /_repost_close_vworld %{1}%;\
   /endif
 
-;; INLINED: https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/squish.tf
-;;  _repost_squish(s1)
-;;  _repost_squish(s1, s2)
-;;          (str) Returns <s1> with runs of <s2> (default space) compressed
-;;          into one occurrence.
-/def -i _repost_squish=\
-  /let squishstring=%{1}%;\
-  /let squishchar=$[({#} > 1) ? {2} : " "]%;\
-  /while (strstr({squishstring}, strrep({squishchar}, 2)) > -1) \
-    /test squishstring := replace(strrep({squishchar}, 2), \
-                                  {squishchar}, \
-                                  {squishstring}) %;\
-  /done%;\
-  /return {squishstring}
