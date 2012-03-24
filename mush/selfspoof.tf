@@ -2,7 +2,7 @@
 ; Lowest tested version: tf 5.0p7
 ; Source: https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/rp/selfspoof.tf
 ; Author: Sketch@M*U*S*H
-; REQUIRE: https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/lib/squish.tf
+; REQUIRE: squish.tf https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/lib/squish.tf
 ;
 ; Purpose:
 ;  Displays your own nospoof info to yourself when using backslash-posing,
