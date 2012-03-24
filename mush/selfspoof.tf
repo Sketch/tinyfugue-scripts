@@ -33,27 +33,18 @@
   /def -i -w'${world_name}' -n1 -mglob -t'$[escape('\'',squish(substr({PR},0,(({first_newline} > -1) ? {first_newline} : 20))))]*' _self_spoof_oneshot=\
     /substitute [$${world_character}:] %%{*} %; /send %{*}
 
-;; Old code. All of them should work, but are not current.
-;; To be removed after this script is put into version control. version control is used.
-; $[substr(%{PR},0,((regmatch('%[Rr]',%{PR}) > 0) ? regmatch('%[Rr]',%{PR}) : 20))]
-;/def -h"SEND ^\\\\" -mregexp self_spoof = /send @oemit \%L/\%#=%{PR}%;/send think \\[\%n:\\] %{PR}
-;/def -h"SEND ^\\\\" -mregexp self_spoof = /send @break 1={@oemit \%L/\%#=%{PR};think \\[\%n:\\] %{PR}}
-;/def -h"SEND ^\\\\" -mregexp self_spoof = \
-;  /def -i -n1 -msimple -t'$[substr({PR},0,((regmatch('%[Rr]',{PR}) > 0) ? regmatch('%[Rr]',{PR}) : 20))]' self_spoof_oneshot = /substitute [$${world_character}:] %%{*} %; /send %{*}
-; /def -h"SEND ^\\\\" -mregexp self_spoof = /def -i -n1 -mglob -t'$[substr({PR},0,((strstr(tolower({PR}),'%r') > -1) ? strstr(tolower({PR}),'%r') : 20))]*' self_spoof_oneshot = /substitute [$${world_character}:] %%{*} %; /send %{*}
-;/def -h"SEND ^\\\\" -mregexp self_spoof = /def -i -n1 -mglob -t'$[escape('\'',replace('  ',' ',substr({PR},0,((strstr(tolower({PR}),'%r') > -1) ? strstr(tolower({PR}),'%r') : 20))))]*' self_spoof_oneshot = /substitute [$${world_character}:] %%{*} %; /send %{*}
 /exit
-;; Tests
+
+@@ Tests
 \Foo
 \Foo bar
 \Foo    bar
 \Foo \  bar
-@@ Test 4 Fails
+@@ Test 4 Fails (uncompressed space)
 \"Foo" bar
 \'Foo' bar
 \%rFoo bar
 \Foo %r bar
 \Foo %b %b bar
-@@ Test 8 fails (embedded %b)
 \Foo bar 
 @@ Test 9 fails (trailing space)
