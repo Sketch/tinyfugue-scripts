@@ -18,6 +18,7 @@ util/srec.tf      - Search backwards through input history.
 
 mush/chatlimits.tf - /limit keybindings for MUSH: Channels and pages
 mush/copyto.tf    - Using @decompile, copy objects from one world to another.
+mush/selfspoof.tf - Display your own nospoof info, for clarity when RPing.
 mush/teach.tf     - /Teach somebody on a MUSH a useful bit of tf scripting.
 
 rp/repost.tf      - Easily repost lines from log files to continue roleplaying.
