@@ -8,12 +8,16 @@
 
 /def -i cg=\
   /let mylist=$(/listsockets -s)%;\
-  /if (regmatch(strcat("(?:^| )(\\Q",{1},"\\E\\S*)(?:$| )"), mylist)) \
-    /fg %{P1} %;\
+  /if (regmatch(strcat("(?:^| )(\\Q",{1},"\\E)(?:$| )"), mylist)) \
+    /fg {1} %;\
   /else \
-    /if (regmatch(strcat("(?:^| )(\\S+\\Q",{1},"\\E\\S*)(?:$| )"), mylist)) \
+    /if (regmatch(strcat("(?:^| )(\\Q",{1},"\\E\\S*)(?:$| )"), mylist)) \
       /fg %{P1} %;\
     /else \
-      /echo -A %% Not connected to any world matching %1 %;\
+      /if (regmatch(strcat("(?:^| )(\\S+\\Q",{1},"\\E\\S*)(?:$| )"), mylist)) \
+        /fg %{P1} %;\
+      /else \
+        /echo -A %% Not connected to any world matching %1 %;\
+      /endif %;\
     /endif %;\
   /endif
