@@ -21,10 +21,17 @@
 ;  For example, typing "1-5 8 10" in the virtual world pastes lines
 ;  1, 2, 3, 4, 5, 8, and 10 back to origin world.
 ;
-;  Pasted lines will have %{repost_prefix} as a prefix.
-;  repost_prefix defaults to "@emit/noeval ". Change it with:
-;  "/set repost_prefix=spoof/noeval "
-;  The trailing space is important!
+;  Lines chosen will be pasted back into the origin world with a prefix based
+;  on worldtype. When in a virtual world, typing "PREFIX <newprefix>" will
+;  change the paste prefix temporarily. To change a prefix permanently,
+;  correctly set the worldtype for the given world when doing /addworld, and
+;  "/set repost_prefix_<worldtype>_<worldsubtype>=<prefix>".
+;  The code will first check the first two words of a given worldtype,
+;  (I.E. repost_prefix_tiny_penn), then fall back to just the first word if
+;  no such variable exists (I.E., repost_prefix_tiny), then fall back to
+;  repose_prefix as the default.
+;  A number of defaults are already defined below the line marked [PREFIXES].
+;  Feel free to add your own, and please submit them to me for inclusion.
 ;
 ;  Default length of recent log file listing queue is 10. Change it with:
 ;  /set repost_queue_size=11
@@ -33,17 +40,12 @@
 ; Scripter's notes:
 ; 'repost_queue' is a list of uniquely-named recently opened logs.
 ; 'repost_queue_length' keeps track of its current length.
-; 
+;
 ; The variables _repost_filename_<WORLDNAME> = <LOGFILE>
 ; keep track of what logfile is being used for each (virtual) world.
 
 ; To-Do:
 ;  * Add default directory option.
-;  * Add repost_prefix altering option to /repost
-;  * Add different (default?) repost_prefixes for different world types.
-;	 ; PennMUSH: @emit/noeval or ]@emit
-;	 ; Rhost: ]@emit
-;	 ; TinyMUX: @nemit
 ;  * Figure out how to /quote to virtual world without /fg it first, so that
 ;    a player's terminal isn't bombed by 300KB+ of logfile text at once.
 ;    ^ Maybe use tail -1000, with a /repost -a option to load the whole file?
@@ -58,7 +60,13 @@
 
 /eval /set repost_queue_size=%{repost_queue_size-10}
 /eval /set repost_queue_length=%{repost_queue_length-0}
-/eval /set repost_prefix=%{repost_prefix-@emit/noeval }
+; Worldtype repost_prefix definitions. Feel free to add your own!
+; remember the trailing space! [PREFIXES]
+/set repost_prefix_tiny_penn=@emit/noeval 
+/set repost_prefix_tiny_tmux=@nemit 
+/set repost_prefix_tiny_rhost=]@emit 
+/set repost_prefix_tiny=@emit 
+/set repost_prefix=say 
 
 ; Keep track of recent logfiles
 /def -iF -h"LOG" repost_log_hook=\
@@ -105,7 +113,7 @@
         /echo -e File \"%{file}\" not readable.%;\
       /else \
         /if ($(/quote -S -decho !ls -dF %{file} > /dev/null;echo \$?) =~ '0')\
-          /echo %% No such regular file \"%{file}". Partial matches follow:%;\
+          /echo %% No such regular file \"%{file}\". Partial matches follow:%;\
           /quote -S -decho !"ls -dF %{file}"%;\
         /elseif ($(/quote -S -decho !ls -dF *%{file}* > /dev/null;echo \$?) =~ '0')\
           /echo %% No such regular file \"%{file}\". Partial matches follow:%;\
@@ -120,16 +128,35 @@
   /endif%;\
   /unset _repost_file
 
+/def -i _repost_message_foregrounded=\
+  /echo -p %% To change the output prefix, type "@{B}PREFIX <new prefix>@{n}".%;\
+  /echo -p %% To exit, type "@{B}.@{n}".
+/def -i _repost_message_prefix=\
+  /echo -p %% Lines will be pasted with "@{B}%{*}@{n}" as a prefix.
+
 ; Create virtual world for reposter, print out lines with linenumbers.
 ; {1} = world name
 ; {-1} = log file name
 /def -i _repost_open_vworld=\
-  /set _repost_filename_$[textencode({1})]=%{-1}%;\
+  /let escaped_worldname=$[textencode({1})]%;\
+  /let worldtype_wordcount=$[regmatch('^([^\\.]+)(?:\\.([^\\.]+))?',world_info({1},'type')) - 1]%;\
+  /if ({worldtype_wordcount} == 2)\
+    /eval /set _final_repost_prefix=%%{repost_prefix_%{P1}_%{P2}}%;\
+  /endif%;\
+  /if (({_final_repost_prefix} =~ '') & ({worldtype_wordcount} >= 1))\
+    /eval /set _final_repost_prefix=%%{repost_prefix_%{P1}}%;\
+  /endif%;\
+  /if ({_final_repost_prefix} =~ '')\
+    /set _final_repost_prefix=%{repost_prefix}%;\
+  /endif%;\
+  /set _repost_prefix_%{escaped_worldname}=%{_final_repost_prefix}%;\
+  /set _repost_filename_%{escaped_worldname}=%{-1}%;\
   /vw_create -s/_repost_sender -tNoLog repost_%{1}%;\
   /fg repost_%{1}%;\
   /quote -S -decho -wrepost_%{1} !"nl -w1 -ba %{-1}"%;\
-  /echo -p %% Lines will be pasted with "@{B}%{repost_prefix}@{n}" as a prefix.%;\
-  /echo -p %% Foregrounded repost world. Type "@{B}.@{n}" to exit.
+  /eval /_repost_message_prefix %%{_repost_prefix_%{escaped_worldname}}%;\
+  /_repost_message_foregrounded%;\
+  /unset _final_repost_prefix
 
 ; Close the reposter virtual world.
 ; {1} is repost_<WORLDNAME>
@@ -137,8 +164,9 @@
   /let current=${world_name}%;\
   /let origin=$[substr({1},strchr({1},'_')+1)]%;\
   /unset _repost_filename_$[textencode({origin})]%;\
+  /unset _repost_prefix_$[textencode({origin})]%;\
   /vw_delete %{1}%;\
-  /if ({current} =~ {1}) /fg %{origin}%; /endif%;\
+  /if ({current} =~ {1}) /fg %{origin}%; /endif
 
 ; The send-handler for the virtual repost world.
 ; {1} is repost_<WORLDNAME>
@@ -152,10 +180,14 @@
     /quote -0.1 -dsend -w%{1} >REROUTE> !"tr '\\\\n' '%{delim}' < %{_repost_file} | cut -d\'%{delim}\' --fields=%{chosen} | tr '%{delim}' '\\\\n'"%;\
     /unset _repost_file%;\
   /elseif ({-1} =/ ">REROUTE>*") \
-;    /eval /set _world_repost_prefix=%%{_repost_prefix_$[textencode(${world_type})]}%;\
+    /eval /set _repost_prefix=%%{_repost_prefix_$[textencode({origin})]}%;\
     /echo -w%{1} $[substr({-1},strlen(">REROUTE>"))]%;\
-    /send -w%{origin} $[strcat({repost_prefix},substr({-1},strlen(">REROUTE>")))]%;\
-;    /unset _world_repost_prefix;\
+    /send -w%{origin} $[strcat({_repost_prefix},substr({-1},strlen(">REROUTE>")))]%;\
+    /unset _repost_prefix%;\
+  /elseif ({-1} =/ "PREFIX *") \
+    /let newprefix=$[substr({-1},strlen("PREFIX "))]%;\
+    /set _repost_prefix_$[textencode({origin})]=%{newprefix}%;\
+    /_repost_message_prefix %{newprefix}%;\
   /elseif ({chosen} =~ '.') \
     /_repost_close_vworld %{1}%;\
   /endif
