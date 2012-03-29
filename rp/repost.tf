@@ -47,6 +47,7 @@
 ; keep track of what logfile is being used for each (virtual) world.
 
 ; To-Do:
+;  * Give user tighter control of leading space when reposting.
 ;  * Add default directory option.
 ;  * Figure out how to /quote to virtual world without /fg it first, so that
 ;    a player's terminal isn't bombed by 300KB+ of logfile text at once.
@@ -62,13 +63,12 @@
 
 /eval /set repost_queue_size=%{repost_queue_size-10}
 /eval /set repost_queue_length=%{repost_queue_length-0}
-; Worldtype repost_prefix definitions. Feel free to add your own!
-; remember the trailing space! [PREFIXES]
-/set repost_prefix_tiny_penn=@emit/noeval 
-/set repost_prefix_tiny_tmux=@nemit 
-/set repost_prefix_tiny_rhost=]@emit 
-/set repost_prefix_tiny=@emit 
-/set repost_prefix=say 
+; [PREFIXES] Worldtype repost_prefix definitions. Feel free to add your own!
+/set repost_prefix_tiny_penn=@emit/noeval
+/set repost_prefix_tiny_tmux=@nemit
+/set repost_prefix_tiny_rhost=]@emit
+/set repost_prefix_tiny=@emit
+/set repost_prefix=say
 
 ; Keep track of recent logfiles
 /def -iF -h"LOG" repost_log_hook=\
@@ -134,7 +134,7 @@
   /echo -p %% To change the output prefix, type "@{B}PREFIX <new prefix>@{n}".%;\
   /echo -p %% To exit, type "@{B}.@{n}".
 /def -i _repost_message_prefix=\
-  /echo -p %% Lines will be pasted with "@{B}%{*}@{n}" as a prefix.
+  /echo -p %% Lines will be pasted with "@{B}%{*} @{n}" as a prefix.
 
 ; Create virtual world for reposter, print out lines with linenumbers.
 ; {1} = world name
