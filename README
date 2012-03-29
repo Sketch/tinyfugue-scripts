@@ -1,19 +1,19 @@
 TinyFugue is a terminal-based MU client.
-This repository has a number of scripts that improve it.
+This repository has a number of scripts (plugins) that improve it.
 These scripts are all from https://github.com/Sketch/tinyfugue-scripts
 
 Directory structure:
 util/    General utilities for TinyFugue.
 rp/      Scripts for roleplaying MUs.
 mud/     Scripts for action MUs.
-mush/    Scripts designed for MUSHes (PennMUSH, TinyMUSH, etc)
+mush/    Scripts designed for MUSHes (PennMUSH, TinyMUX, RhostMUSH, etc.)
 lib/     Useful scripts that don't provide usable functionality on their own.
 
 util/cg.tf        - Quickly switch worlds by substring.
 util/cheecat.tf   - Two improvements on /cat.
 util/infinilog.tf - Automatically log everything and rollover logs daily.
 util/rwhen.tf     - Find out the timestamp of the most recent matching line.
-util/kbdoublestack.tf - When having one input window is too constraining.
+util/kbdoublestack.tf - Limitlessly save and restore the input buffer.
 util/srec.tf      - Search backwards through input history.
 
 mush/chatlimits.tf - /limit keybindings for MUSH: Channels and pages
@@ -21,13 +21,15 @@ mush/copyto.tf    - Using @decompile, copy objects from one world to another.
 mush/selfspoof.tf - Display your own nospoof info, for clarity when RPing.
 mush/teach.tf     - /Teach somebody on a MUSH a useful bit of tf scripting.
 
-rp/repost.tf      - Easily repost lines from log files to continue roleplaying.
+rp/repost.tf      - Easily paste lines from log files to continue roleplaying.
 
 Libraries (used by some of the above or for use in your own code):
 lib/vworld.tf     - An API for managing connectionless sockets. (Virtual worlds)
 lib/assoc.tf      - Association of key/value pairs. (Associative array)
 lib/squish.tf     - Compresses runs of a character into a single character.
 
-I personally coded util/infinilog.tf and rp/repose.tf
-All scripts are for TinyFugue 5, tested on no lower than version beta 8.
-Send questions or comments to Sketch@M*U*S*H (telnet://mush.pennmush.org 4201).
+I personally coded mush/selfspoof.tf, rp/repost.tf, and util/infinilog.tf.
+All scripts are for TinyFugue 5, tested on no lower than version beta 7.
+Send questions or comments to Sketch@M*U*S*H (telnet://mush.pennmush.org:4201).
+Please watch this repository or tell me if you use any of these scripts;
+I'd love to hear what you're doing with them!
