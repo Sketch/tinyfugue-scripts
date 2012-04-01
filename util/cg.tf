@@ -9,7 +9,7 @@
 /def -i cg=\
   /let mylist=$(/listsockets -s)%;\
   /if (regmatch(strcat("(?:^| )(\\Q",{1},"\\E)(?:$| )"), mylist)) \
-    /fg {1} %;\
+    /fg %{1} %;\
   /else \
     /if (regmatch(strcat("(?:^| )(\\Q",{1},"\\E\\S*)(?:$| )"), mylist)) \
       /fg %{P1} %;\
