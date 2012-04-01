@@ -25,11 +25,13 @@
 ;  on worldtype. When in a virtual world, typing "PREFIX <newprefix>" will
 ;  change the paste prefix temporarily. To change a prefix permanently,
 ;  correctly set the worldtype for the given world when doing /addworld, and
-;  "/set repost_prefix_<worldtype>_<worldsubtype>=<prefix>".
-;  The code will first check the first two words of a given worldtype,
-;  (I.E. repost_prefix_tiny_penn), then fall back to just the first word if
-;  no such variable exists (I.E., repost_prefix_tiny), then fall back to
-;  repose_prefix as the default.
+;  "/set repost_prefix_<worldtype>=<prefix>", replacing full stops with
+;  underscores. The code will progressively check for variables that are the
+;  prefix of the given worldtype, falling back to repost_prefix.
+;  Example:
+;   For a worldtype 'madeup.worldtype.', the code checks for variables to use
+;   as paste prefixes in this order: repost_prefix_madeup_worldtype_ ->
+;   repost_prefix_madeup_worldtype -> repost_prefix_madeup -> repost_prefix.
 ;  A number of defaults are already defined below the line marked [PREFIXES].
 ;  Feel free to add your own, and please submit them to me for inclusion.
 ;
@@ -45,6 +47,7 @@
 ; keep track of what logfile is being used for each (virtual) world.
 
 ; To-Do:
+;  * Give user tighter control of leading space when reposting.
 ;  * Add default directory option.
 ;  * Figure out how to /quote to virtual world without /fg it first, so that
 ;    a player's terminal isn't bombed by 300KB+ of logfile text at once.
@@ -60,13 +63,12 @@
 
 /eval /set repost_queue_size=%{repost_queue_size-10}
 /eval /set repost_queue_length=%{repost_queue_length-0}
-; Worldtype repost_prefix definitions. Feel free to add your own!
-; remember the trailing space! [PREFIXES]
-/set repost_prefix_tiny_penn=@emit/noeval 
-/set repost_prefix_tiny_tmux=@nemit 
-/set repost_prefix_tiny_rhost=]@emit 
-/set repost_prefix_tiny=@emit 
-/set repost_prefix=say 
+; [PREFIXES] Worldtype repost_prefix definitions. Feel free to add your own!
+/set repost_prefix_tiny_penn=@emit/noeval
+/set repost_prefix_tiny_tmux=@nemit
+/set repost_prefix_tiny_rhost=]@emit
+/set repost_prefix_tiny=@emit
+/set repost_prefix=say
 
 ; Keep track of recent logfiles
 /def -iF -h"LOG" repost_log_hook=\
@@ -132,23 +134,18 @@
   /echo -p %% To change the output prefix, type "@{B}PREFIX <new prefix>@{n}".%;\
   /echo -p %% To exit, type "@{B}.@{n}".
 /def -i _repost_message_prefix=\
-  /echo -p %% Lines will be pasted with "@{B}%{*}@{n}" as a prefix.
+  /echo -p %% Lines will be pasted with "@{B}%{*} @{n}" as a prefix.
 
 ; Create virtual world for reposter, print out lines with linenumbers.
 ; {1} = world name
 ; {-1} = log file name
 /def -i _repost_open_vworld=\
   /let escaped_worldname=$[textencode({1})]%;\
-  /let worldtype_wordcount=$[regmatch('^([^\\.]+)(?:\\.([^\\.]+))?',world_info({1},'type')) - 1]%;\
-  /if ({worldtype_wordcount} == 2)\
-    /eval /set _final_repost_prefix=%%{repost_prefix_%{P1}_%{P2}}%;\
-  /endif%;\
-  /if (({_final_repost_prefix} =~ '') & ({worldtype_wordcount} >= 1))\
-    /eval /set _final_repost_prefix=%%{repost_prefix_%{P1}}%;\
-  /endif%;\
-  /if ({_final_repost_prefix} =~ '')\
-    /set _final_repost_prefix=%{repost_prefix}%;\
-  /endif%;\
+  /let worldtype=$[squish(strcat('_',replace('.','_',world_info({1},'type'))),'_')]%;\
+  /while ({_final_repost_prefix} =~ '')\
+	  /eval /set _final_repost_prefix=%%{repost_prefix%{worldtype}}%;\
+	  /let worldtype=$[substr({worldtype},0,strrchr({worldtype},'_'))]%;\
+  /done%;\
   /set _repost_prefix_%{escaped_worldname}=%{_final_repost_prefix}%;\
   /set _repost_filename_%{escaped_worldname}=%{-1}%;\
   /vw_create -s/_repost_sender -tNoLog repost_%{1}%;\
