@@ -28,6 +28,9 @@ lib/vworld.tf     - An API for managing connectionless sockets. (Virtual worlds)
 lib/assoc.tf      - Association of key/value pairs. (Associative array)
 lib/squish.tf     - Compresses runs of a character into a single character.
 
+If you plan to 'git clone' this repository, it is worth investigating:
+loader.tf         - Add all the directories of this repository to TFPATH.
+
 I personally coded mush/selfspoof.tf, rp/repost.tf, and util/infinilog.tf.
 All scripts are for TinyFugue 5, tested on no lower than version beta 7.
 Send questions or comments to Sketch@M*U*S*H (telnet://mush.pennmush.org:4201).
