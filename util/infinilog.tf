@@ -1,5 +1,4 @@
 ; Name: Infinilog
-; Version: 1.3
 ; Lowest tested version: tf 5.0b8
 ; Source: https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/util/infinilog.tf
 ; Author: Sketch@M*U*S*H
@@ -14,6 +13,7 @@
 ;   /log off and /log -w[World] off call /inflog to resume managed logging.
 ;  You can use /@log off and /@log -w[World] off to really stop logging,
 ;   or comment out the relevant code below if you really hate this behavior.
+;  Infinilog does not automatically create directories.
 ;
 ; Usage:
 ;  /require infinilog.tf in your .tfrc.
@@ -62,6 +62,7 @@
 ; 
 ; Improvements to be made:
 ; * The timers break during Daylight Saving Time transitions.
+; * TinyFugue doesn't automatically create directories for /log.
 ; 
 ; I've implemented everything I want. I'm Sketch@M*U*S*H
 ; (mush.pennmush.org 4201) if you want to suggest something.
