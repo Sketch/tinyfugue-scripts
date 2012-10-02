@@ -44,14 +44,14 @@
 ; to the current channel.
 
 ; First, the default channel.
-/if (%{_cur_chan_} =~ "") /set _cur_chan_=<Public%; /endif
+/if ({_cur_chan_} =~ "") /set _cur_chan_=<Public%; /endif
 
 ; When I send "+foo" - Mark 'foo' as my current channel.
-/def -F -h"send ^\+(\+?\w+) .*$" -mregexp chanlimit= \
+/def -F -h"send ^\\+(\\+?\\w+) .*$" -mregexp chanlimit= \
     /set _cur_chan_=<%{P1}%; \
     /send %P0
    
-/def -F -h"send ^\-(\S+) .*" -mregexp minuschanlimit= \
+/def -F -h'send ^\\-(\\S+) .*' -mregexp minuschanlimit= \
     /set _cur_chan_=\\\\[%{P1}%; \
     /send - %P0
 
@@ -60,10 +60,10 @@
 ; channel.
 /bind ^xc=\
     /let _input_=$(/recall -i 1)%; \
-    /let _chan_=%{_cur_chan_}%; \
-    /if /test regmatch('^\\+(\\+*\\w+)',"%{_input_}")%; /then \
+    /let _chan_={_cur_chan_}%; \
+    /if /test regmatch('^\\\\+(\\\\+*\\\\w+)',"%{_input_}")%; /then \
        /let _chan_=<%P1%; \
-     /elseif /test regmatch('^\\-(\\S+)',"%{_input_}")%; /then \
+     /elseif /test regmatch('^-(\\\\S+)',"%{_input_}")%; /then \
        /let _chan_=\\\\[%P1%; \
      /endif%; \
     /eval /limit %{_chan_}*
