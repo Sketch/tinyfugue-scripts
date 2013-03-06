@@ -4,7 +4,7 @@
 ; Author: Sketch@M*U*S*H
 ; REQUIRE: vworld.tf https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/lib/vworld.tf
 ; REQUIRE: squish.tf https://raw.github.com/Sketch/tinyfugue-scripts/HEAD/lib/squish.tf
-; Notice: This script requires the 'cut' coreutil. (optionally 'ls')
+; Notice: This script requires the 'cut' and 'nl' coreutils. (optionally 'ls')
 ;
 ; Purpose:
 ;  Assists the user in reposting lines from logs.
@@ -15,7 +15,8 @@
 ;  If the argument is not the name of a regular file, it is treated as a
 ;  pattern, and a list of matching filenames is displayed.
 ;  If the argument is the name of a regular file, a virtual world is opened
-;  which contains every line in the file numbered from the beginning.
+;  which contains every line in the file numbered in ascending order from
+;  the beginning.
 ;  In a virtual world, type in line numbers to paste them back to the
 ;  originating world.
 ;  For example, typing "1-5 8 10" in the virtual world pastes lines
@@ -95,7 +96,7 @@
 
 ; Master command.
 ; /repost           - Call _repost_list to print a list of recent logs.
-; /repost <logfile> - Open virtual world with line numbered from bottom.
+; /repost <logfile> - Open virtual world with lines numbered in ascending order.
 ; /repost <pattern> - List all matching filenames.
 ;
 ; _repost_file line checks if var _repost_filename_<CURRENT_WORLD> exists.
