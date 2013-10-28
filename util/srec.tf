@@ -21,7 +21,13 @@
 
 /def -i -b'^R' srecall=\
   /if ( kb_all() =~ "") \
-    /echo -A Can't search an empty string. %;\
+    /if ( {srecall_phrase} =~ "") \
+      /echo -A %% Can't search an empty string. %;\
+    /else \
+      /echo -A %% Search aborted. Restored input.%;\
+      /grab %{srecall_phrase}%;\
+      /unset srecall_phrase%;\
+    /endif %;\
     /return %;\
   /endif %;\
   /if ( line_total("-i") != {srecall_seen} | \
