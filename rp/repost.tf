@@ -48,6 +48,7 @@
 ; keep track of what logfile is being used for each (virtual) world.
 
 ; To-Do:
+;  * Repost correctly when file found by wildcard
 ;  * Give user tighter control of leading space when reposting.
 ;  * Add default directory option.
 ;  * Figure out how to /quote to virtual world without /fg it first, so that
