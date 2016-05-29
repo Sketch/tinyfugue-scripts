@@ -23,7 +23,7 @@
 ;  that isn't the inflog_fileformat's format with today's date, it won't
 ;  roll over the log to the next day. This is intentional, and done so you
 ;  can individually log your roleplay/combat however you like.
-;  Be sure to use /inflog, not /log -w off, 
+;  Be sure to use /inflog, not /log -w off,
 ;
 ;  Worlds with 'NoLog' in their world type will not be logged.
 ;  /set inflog_fileformat in your .tfrc before loading this script to change
@@ -48,7 +48,7 @@
 ;  "A" (if you've loaded one of the activity_status.tf scripts) when all
 ;  logs are being managed, run /inflog_status after loading this script.
 ;
-; 
+;
 ; Notes to scripters:
 ;  * The function inflog_all_managed() returns nonzero if all worlds are
 ;    logging to managed log files.
@@ -59,11 +59,11 @@
 ;  * If you need to override /dc or /log for your own purposes, you can call
 ;    infinilog's methods with /_inflog_dc and /_inflog_log, with the original
 ;    arguments to /dc or /log.
-; 
+;
 ; Improvements to be made:
 ; * The timers break during Daylight Saving Time transitions.
 ; * TinyFugue doesn't automatically create directories for /log.
-; 
+;
 ; I've implemented everything I want. I'm Sketch@M*U*S*H
 ; (mush.pennmush.org 4201) if you want to suggest something.
 
