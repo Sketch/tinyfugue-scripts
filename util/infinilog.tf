@@ -159,6 +159,13 @@
   /let Worldname=$(/rest %{P1})%;\
   /if (!inflog_isloggingto({Worldname},{P2})) /test all_auto:=0%; /endif
 
+/def -i _inflog_get_status_length=\
+  /if ({status_int_log} =~ 'nlog() ? "(Log)" : ""')\
+    /result 6%;\
+  /elseif ({status_int_log} =~ 'nlog() ? "L" : ""')\
+    /result 1%;\
+  /endif
+
 /set inflog_status_short=nlog() ? (inflog_all_managed() ? "A" : "L") : ""
 /set inflog_status_long=nlog() ? (inflog_all_managed() ? "(Auto)" : "(Log)") : ""
 /set inflog=0
@@ -169,12 +176,11 @@
     /_echo Couldn't replace status field--are you using a custom one?%;\
     /return%;\
   /endif%;\
-  /if ({status_int_log} =~ 'nlog() ? "(Log)" : ""')\
+  /let status_length=$(/_inflog_get_status_length)%;\
+  /if ({status_length} == 6)\
     /eval /set status_var_inflog=%{inflog_status_long}%;\
-    /let status_length=6%;\
-  /elseif ({status_int_log} =~ 'nlog() ? "L" : ""')\
+  /else \
     /eval /set status_var_inflog=%{inflog_status_short}%;\
-    /let status_length=1%;\
   /endif%;\
   /eval /status_add -A@log inflog:%{status_length}%;\
   /status_rm @log
@@ -217,4 +223,16 @@
 /else \
     /inflog_hook_disconnect %{*-${world_name}}%;\
  /endif
+
+/def inflog_off=\
+  /undef log%;\
+  /kill %{inflog_daily_id}%;\
+  /kill %{inflog_hourly_id}%;\
+  /undef inflog_hook_connect%;\
+  /undef inflog_hook_disconnect%;\
+  /let status_length=$(/_inflog_get_status_length)%;\
+  /eval /status_add -Ainflog @log:%{status_length}%;\
+  /status_rm inflog%;\
+  /def -i inflog_all_managed=/result 0%;\
+  /_echo %% Disabled managed logging.
 
