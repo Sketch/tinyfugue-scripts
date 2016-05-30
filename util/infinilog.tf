@@ -225,6 +225,7 @@
  /endif
 
 /def inflog_off=\
+  /undef dc%;\
   /undef log%;\
   /kill %{inflog_daily_id}%;\
   /kill %{inflog_hourly_id}%;\
