@@ -180,8 +180,8 @@
     /unset _repost_file%;\
   /elseif ({-1} =/ ">REROUTE>*") \
     /eval /set _repost_prefix=%%{_repost_prefix_$[textencode({origin})]}%;\
-    /echo -w%{1} $[substr({-1},strlen(">REROUTE>"))]%;\
-    /send -w%{origin} $[strcat({_repost_prefix},substr({-1},strlen(">REROUTE>")))]%;\
+    /echo -w%{1} -- $[substr({-1},strlen(">REROUTE>"))]%;\
+    /send -w%{origin} -- $[strcat({_repost_prefix},substr({-1},strlen(">REROUTE>")))]%;\
     /unset _repost_prefix%;\
   /elseif ({-1} =/ "PREFIX *") \
     /let newprefix=$[substr({-1},strlen("PREFIX "))]%;\
