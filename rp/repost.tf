@@ -68,7 +68,11 @@
 ; [PREFIXES] Worldtype repost_prefix definitions. Feel free to add your own!
 /set repost_prefix_tiny_penn=@emit/noeval
 /set repost_prefix_tiny_tmux=@nemit
-/set repost_prefix_tiny_rhost=]@emit
+; RhostMUSH emit can now be made made to not compress space.
+; To have RhostMUSH compress space,
+; switch which of the next two lines are commented out.
+; /set repost_prefix_tiny_rhost=]@emit
+/set repost_prefix_tiny_rhost=}]@emit
 /set repost_prefix_tiny=@emit
 /set repost_prefix=say
 
