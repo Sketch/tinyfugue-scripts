@@ -58,7 +58,7 @@
     /return 0%;\
   /endif%;\
   /vw_ensure %{vw_world}%;\
-  /echo -w%{vw_world} %{vw_text}
+  /echo -w%{vw_world} -- %{vw_text}
 
 ;;; /vw_redirect [-k] [-m<matching>] <from>=<to>=<pattern>
 ; Redirects lines from world from matching pattern to virtual world to.
